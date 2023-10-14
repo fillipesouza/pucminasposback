@@ -1,4 +1,4 @@
-package com.fssilva.pucminasposintback;
+package com.fssilva.pucminasposback;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
