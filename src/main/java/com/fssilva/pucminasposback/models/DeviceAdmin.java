@@ -17,10 +17,9 @@ import java.util.Date;
 @DynamoDBTable(tableName="deviceadmin")
 public class DeviceAdmin {
 
-    @DynamoDBRangeKey(attributeName="customerId")
     private String customerId;
 
-    @DynamoDBHashKey(attributeName="sampleTime")
+    @DynamoDBHashKey(attributeName="deviceId")
     private String deviceId;
 
     @DynamoDBAttribute

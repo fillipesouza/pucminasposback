@@ -41,7 +41,7 @@ public class DeviceController {
         return deviceAdminService.edit(deviceId, deviceAdmin);
     }
 
-    @PutMapping("/admin")
+    @PostMapping("/admin")
     public void addDeviceData(@RequestBody DeviceAdmin deviceAdmin) throws Exception {
          deviceAdminService.saveDeviceAdmin(deviceAdmin);
     }

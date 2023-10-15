@@ -48,6 +48,8 @@ public class DeviceAdminService {
     public void saveDeviceAdmin(DeviceAdmin deviceAdmin) throws Exception {
         AmazonDynamoDB dynamoDBClient = new AmazonDynamoDBClient();
         DynamoDBMapper mapper = new DynamoDBMapper(dynamoDBClient);
+        deviceAdmin.setDeviceId(UUID.randomUUID().toString());
+        deviceAdmin.setInstallationTime(new Date());
         mapper.save(deviceAdmin);
 
     }
