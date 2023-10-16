@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -108,23 +109,16 @@ public class DeviceService {
         AmazonDynamoDB dynamoDBClient = new AmazonDynamoDBClient();
         //DynamoDBMapper mapper = new DynamoDBMapper(dynamoDBClient);
         DynamoDBMapper mapper = new DynamoDBMapper(dynamoDBClient);
-
-
-
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":val1", new AttributeValue().withS(customerId));
 
-        DynamoDBQueryExpression<DeviceAdmin> queryExpression = new DynamoDBQueryExpression<DeviceAdmin>()
-                .withKeyConditionExpression("customerId = :val1")
-                //.withKeyConditionExpression("customerId = :val1")
-                .withExpressionAttributeValues(eav);
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        scanExpression.setFilterExpression("customerId = :val1");
+        scanExpression.setExpressionAttributeValues(eav);
 
-        List<DeviceAdmin> administratedDevices = mapper.query(DeviceAdmin.class, queryExpression);
 
-        for (DeviceAdmin device : administratedDevices) {
-            System.out.format("Id=%s, Device=%s, InstalledAt=%s %n, InstalledAt=%s %n", device.getDeviceId(),
-                    device.getDeviceAlias(), device.getCustomerId(), device.getInstallationTime());
-        }
+        List<DeviceAdmin> administratedDevices = mapper.scan(DeviceAdmin.class, scanExpression);
+
 
         return administratedDevices;
 

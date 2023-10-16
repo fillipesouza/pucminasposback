@@ -46,6 +46,7 @@ public class DeviceController {
          deviceAdminService.saveDeviceAdmin(deviceAdmin);
     }
 
+
     @GetMapping("/summary/{customerId}")
     public List<DeviceResponseDto> getDeviceSummaryStatusByCustomer(@PathVariable("customerId") String customerId) throws Exception {
 
