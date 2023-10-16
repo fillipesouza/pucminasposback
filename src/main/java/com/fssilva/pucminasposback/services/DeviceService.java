@@ -45,11 +45,11 @@ public class DeviceService {
 
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":val1", new AttributeValue().withS(partitionKey));
-        eav.put(":val2", new AttributeValue().withS(startDate));
-        eav.put(":val3", new AttributeValue().withS(endDate));
+        //eav.put(":val2", new AttributeValue().withS(String.valueOf(startDateMilli)));
+        //eav.put(":val3", new AttributeValue().withS(String.valueOf(endDateMilli)));
 
         DynamoDBQueryExpression<Devices> queryExpression = new DynamoDBQueryExpression<Devices>()
-                .withKeyConditionExpression("customerId = :val1 and sampleTime between :val2 and :val3")
+                .withKeyConditionExpression("customerId = :val1")
                 //.withKeyConditionExpression("customerId = :val1")
                 .withExpressionAttributeValues(eav);
 
